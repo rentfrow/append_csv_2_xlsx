@@ -38,6 +38,7 @@ import sys
 import datetime
 import re
 
+# need to make this a command line option
 elapsed_time_opt = True
 
 # Collect command arguments and parse into variables
