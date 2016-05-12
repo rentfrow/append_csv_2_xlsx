@@ -24,6 +24,7 @@
  
     Author: Brad Rentfrow
             brentfro@cisco.com
+            brad@rentfrow.us
     Last Update: May06-2016
 """
 
@@ -202,7 +203,7 @@ def append_csv_to_xlsx(cvs_src, wb):
 # Fix Date
 # look into replacing with strptime module
 def csv_cnvt_date(the_datestamp):
-    #print(the_datestamp)
+    # print(the_datestamp)
     # date = 04/29/16 21:13:41.002
     if re.match(r'^\d{1,2}/\d{1,2}/\d{2,2}\s\d{1,2}:\d{1,2}:\d{1,2}\.\d{1,3}', the_datestamp, re.M) is not None:
         the_date_time = the_datestamp.split( )
@@ -219,6 +220,13 @@ def csv_cnvt_date(the_datestamp):
         the_date = the_date_time[0].split('/')
         the_time = the_date_time[1].split(':')
         the_date[2] = "20" + str(the_date[2]) # adding 20 suffix to year as datetime requires it
+        the_sec = int(the_time[2]) 
+        the_msec = 0
+    # date = 04/29/2016 21:13:41
+    elif re.match(r'^\d{1,2}/\d{1,2}/\d{4}\s\d{1,2}:\d{1,2}:\d{1,2}$', the_datestamp, re.M) is not None:
+        the_date_time = the_datestamp.split( )
+        the_date = the_date_time[0].split('/')
+        the_time = the_date_time[1].split(':')
         the_sec = int(the_time[2]) 
         the_msec = 0
     # date = 4/5/2016 21:27
