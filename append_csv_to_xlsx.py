@@ -210,6 +210,11 @@ def csv_cnvt_date(the_datestamp):
         the_date = the_date_time[0].split('/')
         the_time = the_date_time[1].split(':')
         the_date[2] = "20" + str(the_date[2]) # adding 20 suffix to year as datetime requires it
+        the_year = the_date[2]
+        the_month = the_date[0]
+        the_day = the_date[1]
+        the_hours = the_time[0]
+        the_minutes = the_time[1]
         the_seconds = the_time[2].split('.')
         the_sec = int(the_seconds[0]) 
         # the_msec = int(the_seconds[1])
@@ -220,6 +225,11 @@ def csv_cnvt_date(the_datestamp):
         the_date = the_date_time[0].split('/')
         the_time = the_date_time[1].split(':')
         the_date[2] = "20" + str(the_date[2]) # adding 20 suffix to year as datetime requires it
+        the_year = the_date[2]
+        the_month = the_date[0]
+        the_day = the_date[1]
+        the_hours = the_time[0]
+        the_minutes = the_time[1]
         the_sec = int(the_time[2]) 
         the_msec = 0
     # date = 04/29/2016 21:13:41
@@ -227,6 +237,11 @@ def csv_cnvt_date(the_datestamp):
         the_date_time = the_datestamp.split( )
         the_date = the_date_time[0].split('/')
         the_time = the_date_time[1].split(':')
+        the_year = the_date[2]
+        the_month = the_date[0]
+        the_day = the_date[1]
+        the_hours = the_time[0]
+        the_minutes = the_time[1]
         the_sec = int(the_time[2]) 
         the_msec = 0
     # date = 4/5/2016 21:27
@@ -234,17 +249,31 @@ def csv_cnvt_date(the_datestamp):
         the_date_time = the_datestamp.split( )
         the_date = the_date_time[0].split('/')
         the_time = the_date_time[1].split(':')
+        the_year = the_date[2]
+        the_month = the_date[0]
+        the_day = the_date[1]
+        the_hours = the_time[0]
+        the_minutes = the_time[1]
+        the_sec = 0
+        the_msec = 0
+    # No timestamp detected
+    else:
+        the_year = 1900
+        the_month = 1
+        the_day = 1
+        the_hours = 0
+        the_minutes = 0
         the_sec = 0
         the_msec = 0
         #print(int(the_date[2]) , int(the_date[0]), int(the_date[1]), int(the_time[0]), int(the_time[1]), the_sec, the_msec)
     return [
-            int(the_date[2]), # year
-            int(the_date[0]), # month
-            int(the_date[1]), # day
-            int(the_time[0]), # hour
-            int(the_time[1]), # minutes
-            int(the_sec),     # seconds
-            int(the_msec)     # micro-seconds
+            int(the_year),
+            int(the_month),
+            int(the_day),
+            int(the_hours),
+            int(the_minutes),
+            int(the_sec), 
+            int(the_msec) 
             ]
     
 # Strips the file name extension
