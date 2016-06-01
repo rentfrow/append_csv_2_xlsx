@@ -25,7 +25,7 @@
     Author: Brad Rentfrow
             brentfro@cisco.com
             brad@rentfrow.us
-    Last Update: May06-2016
+    Last Update: Jun01-2016
 """
 
 import openpyxl
@@ -200,12 +200,42 @@ def append_csv_to_xlsx(cvs_src, wb):
                         except ValueError:
                             new_ws.cell(column=cel_col, row=cel_row).value = cel_value
 
+# Month to digit
+def month_to_digit(month):
+    monthdigit = {'Jan': '01',
+                    'Feb': '02',
+                    'Mar': '03',
+                    'Apr': '04',
+                    'May': '05',
+                    'Jun': '06',
+                    'Jul': '07',
+                    'Aug': '08',
+                    'Sep': '09',
+                    'Oct': '10',
+                    'Nov': '11',
+                    'Dec': '12'}
+    return monthdigit[month]
+    
 # Fix Date
 # look into replacing with strptime module
 def csv_cnvt_date(the_datestamp):
-    # print(the_datestamp)
+    # print("Processing date: " + the_datestamp)
+    # Apr 07, 2016 21:56:43.043
+    if re.match(r'[JanFebMarApyulgSOctNovDc]{3}\s\d{2},\s\d{4}\s\d{2}:\d{2}:\d{2}\.\d{3}', the_datestamp, re.M) is not None:
+        the_date_time = the_datestamp.split( )
+        the_year = the_date_time[2]
+        the_month = month_to_digit(the_date_time[0])
+        the_date = the_date_time[1].split(',')
+        the_day = the_date[0]
+        the_time = the_date_time[3].split(':')
+        the_hours = the_time[0]
+        the_minutes = the_time[1]
+        the_seconds = the_time[2].split('.')
+        the_sec = int(the_seconds[0]) 
+        the_msec = the_seconds[1]
+        # the_msec = float(the_seconds[1]) / 1000 # still not working just prints zero
     # date = 04/29/16 21:13:41.002
-    if re.match(r'^\d{1,2}/\d{1,2}/\d{2,2}\s\d{1,2}:\d{1,2}:\d{1,2}\.\d{1,3}', the_datestamp, re.M) is not None:
+    elif re.match(r'^\d{1,2}/\d{1,2}/\d{2,2}\s\d{1,2}:\d{1,2}:\d{1,2}\.\d{1,3}', the_datestamp, re.M) is not None:
         the_date_time = the_datestamp.split( )
         the_date = the_date_time[0].split('/')
         the_time = the_date_time[1].split(':')
