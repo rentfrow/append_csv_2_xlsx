@@ -249,6 +249,21 @@ def csv_cnvt_date(the_datestamp):
         the_sec = int(the_seconds[0]) 
         # the_msec = int(the_seconds[1])
         the_msec = float(the_seconds[1]) / 1000 # still not working just prints zero
+        # date = 08/22/2016 15:26:44.392
+    elif re.match(r'^\d{1,2}/\d{1,2}/\d{2,4}\s\d{1,2}:\d{1,2}:\d{1,2}\.\d{1,3}', the_datestamp, re.M) is not None:
+        the_date_time = the_datestamp.split( )
+        the_date = the_date_time[0].split('/')
+        the_time = the_date_time[1].split(':')
+        #the_date[2] = "20" + str(the_date[2]) # adding 20 suffix to year as datetime requires it
+        the_year = the_date[2]
+        the_month = the_date[0]
+        the_day = the_date[1]
+        the_hours = the_time[0]
+        the_minutes = the_time[1]
+        the_seconds = the_time[2].split('.')
+        the_sec = int(the_seconds[0]) 
+        # the_msec = int(the_seconds[1])
+        the_msec = float(the_seconds[1]) / 1000 # still not working just prints zero
     # date = 04/29/16 21:13:41
     elif re.match(r'^\d{1,2}/\d{1,2}/\d{2,2}\s\d{1,2}:\d{1,2}:\d{1,2}$', the_datestamp, re.M) is not None:
         the_date_time = the_datestamp.split( )
